@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Sync</title>
+    <meta name="description" content="Manage your events, track performance, and view analytics.">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/styles.css">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <div class="nav-brand">
+                    <a href="/" class="brand-link">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>Sync</span>
+                    </a>
+                </div>
+                
+                <div class="nav-menu" id="nav-menu">
+                    <a href="/public/events.html" class="nav-link">Browse Events</a>
+                    <a href="/public/create-event.html" class="nav-link">Host Event</a>
+                    <a href="/public/dashboard.html" class="nav-link active">Dashboard</a>
+                </div>
+                
+                <div class="nav-buttons" id="nav-buttons">
+                    <!-- Will be populated by auth.js -->
+                </div>
+                
+                <button class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Dashboard Header -->
+    <section class="dashboard-header">
+        <div class="container">
+            <div class="dashboard-header-content">
+                <div class="dashboard-title">
+                    <h1>Dashboard</h1>
+                    <p>Manage your events and track your success</p>
+                </div>
+                <div class="dashboard-actions">
+                    <a href="/public/create-event.html" class="btn btn-primary">
+                        <i class="fas fa-plus"></i>
+                        Create Event
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dashboard Content -->
+    <section class="dashboard-content">
+        <div class="container">
+            <!-- Tabs -->
+            <div class="dashboard-tabs">
+                <button class="tab-button active" data-tab="overview">Overview</button>
+                <button class="tab-button" data-tab="my-events">My Events</button>
+                <button class="tab-button" data-tab="bookings">My Bookings</button>
+                <button class="tab-button" data-tab="analytics">Analytics</button>
+            </div>
+
+            <!-- Overview Tab -->
+            <div class="tab-content active" id="overview">
+                <!-- Stats Cards -->
+                <div class="stats-grid" id="stats-grid">
+                    <!-- Stats will be loaded dynamically -->
+                    <div class="loading-container">
+                        <div class="loading-spinner">
+                            <i class="fas fa-spinner fa-spin"></i>
+                        </div>
+                        <p>Loading stats...</p>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h3>Recent Events</h3>
+                            <a href="#" class="view-all">View All</a>
+                        </div>
+                        <div class="card-content" id="recent-events">
+                            <!-- Recent events will be loaded here -->
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h3>Revenue Breakdown</h3>
+                        </div>
+                        <div class="card-content" id="revenue-breakdown">
+                            <!-- Revenue breakdown will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- My Events Tab -->
+            <div class="tab-content" id="my-events">
+                <div class="tab-header">
+                    <h2>My Events</h2>
+                    <a href="/public/create-event.html" class="btn btn-primary">
+                        <i class="fas fa-plus"></i>
+                        Create New Event
+                    </a>
+                </div>
+                <div class="events-list" id="my-events-list">
+                    <!-- Events will be loaded dynamically -->
+                    <div class="loading-container">
+                        <div class="loading-spinner">
+                            <i class="fas fa-spinner fa-spin"></i>
+                        </div>
+                        <p>Loading your events...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- My Bookings Tab -->
+            <div class="tab-content" id="bookings">
+                <div class="tab-header">
+                    <h2>My Bookings</h2>
+                    <a href="/public/events.html" class="btn btn-outline">
+                        <i class="fas fa-search"></i>
+                        Browse Events
+                    </a>
+                </div>
+                <div class="bookings-list" id="bookings-list">
+                    <!-- Bookings will be loaded dynamically -->
+                    <div class="loading-container">
+                        <div class="loading-spinner">
+                            <i class="fas fa-spinner fa-spin"></i>
+                        </div>
+                        <p>Loading your bookings...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Analytics Tab -->
+            <div class="tab-content" id="analytics">
+                <div class="tab-header">
+                    <h2>Analytics</h2>
+                    <div class="analytics-filters">
+                        <select id="analytics-period" class="filter-select">
+                            <option value="7days">Last 7 Days</option>
+                            <option value="30days">Last 30 Days</option>
+                            <option value="3months">Last 3 Months</option>
+                            <option value="6months" selected>Last 6 Months</option>
+                            <option value="1year">Last Year</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="analytics-grid">
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h3>Event Performance</h3>
+                        </div>
+                        <div class="card-content" id="performance-list">
+                            <!-- Performance data will be loaded here -->
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h3>Revenue Trends</h3>
+                        </div>
+                        <div class="card-content" id="revenue-trends">
+                            <!-- Revenue trends will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-brand">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>Sync</span>
+                    </div>
+                    <p class="footer-description">
+                        Connecting communities through amazing events across India
+                    </p>
+                </div>
+                <div class="footer-section">
+                    <h4 class="footer-title">Platform</h4>
+                    <ul class="footer-links">
+                        <li><a href="/public/events.html">Browse Events</a></li>
+                        <li><a href="/public/create-event.html">Host Event</a></li>
+                        <li><a href="/public/dashboard.html">Dashboard</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4 class="footer-title">Support</h4>
+                    <ul class="footer-links">
+                        <li><a href="/help">Help Center</a></li>
+                        <li><a href="/contact">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4 class="footer-title">Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="/privacy">Privacy Policy</a></li>
+                        <li><a href="/terms">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Sync. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="/public/js/config.js"></script>
+    <script src="/public/js/api.js"></script>
+    <script src="/public/js/auth.js"></script>
+    <script src="/public/js/dashboard.js"></script>
+</body>
+</html>

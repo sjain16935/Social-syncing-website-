@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Sync</title>
+    <meta name="description" content="Create your Sync account to start hosting and attending amazing events.">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/styles.css">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="auth-page">
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <div class="nav-brand">
+                    <a href="/" class="brand-link">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>Sync</span>
+                    </a>
+                </div>
+                
+                <div class="nav-menu">
+                    <a href="/" class="nav-link">Home</a>
+                    <a href="/public/events.html" class="nav-link">Browse Events</a>
+                </div>
+                
+                <div class="nav-buttons">
+                    <a href="/public/login.html" class="btn btn-ghost">Sign In</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Signup Section -->
+    <section class="auth-section">
+        <div class="container">
+            <div class="auth-container">
+                <div class="auth-card">
+                    <div class="auth-header">
+                        <h1 class="auth-title">Create Account</h1>
+                        <p class="auth-subtitle">Join Sync to start hosting and attending amazing events</p>
+                    </div>
+                    
+                    <form class="auth-form" id="signup-form" onsubmit="handleSignup(event)">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="firstName">First Name</label>
+                                <input type="text" id="firstName" name="firstName" required 
+                                       placeholder="Enter first name">
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Last Name</label>
+                                <input type="text" id="lastName" name="lastName" required 
+                                       placeholder="Enter last name">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" required 
+                                   placeholder="Enter your email">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" required 
+                                   placeholder="Enter your phone number">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" id="password" name="password" required 
+                                   placeholder="Create a strong password" minlength="6">
+                            <small class="form-help">Password must be at least 6 characters long</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="confirmPassword">Confirm Password</label>
+                            <input type="password" id="confirmPassword" name="confirmPassword" required 
+                                   placeholder="Confirm your password">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="city">City</label>
+                            <select id="city" name="city" required>
+                                <option value="">Select your city</option>
+                                <option value="Mumbai">Mumbai</option>
+                                <option value="Delhi">Delhi</option>
+                                <option value="Bangalore">Bangalore</option>
+                                <option value="Pune">Pune</option>
+                                <option value="Hyderabad">Hyderabad</option>
+                                <option value="Chennai">Chennai</option>
+                                <option value="Kolkata">Kolkata</option>
+                                <option value="Ahmedabad">Ahmedabad</option>
+                                <option value="Jaipur">Jaipur</option>
+                                <option value="Lucknow">Lucknow</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="isHost" name="isHost">
+                                <span class="checkmark"></span>
+                                I want to host events
+                            </label>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="terms" name="terms" required>
+                                <span class="checkmark"></span>
+                                I agree to the <a href="/terms" target="_blank">Terms of Service</a> and <a href="/privacy" target="_blank">Privacy Policy</a>
+                            </label>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="newsletter" name="newsletter">
+                                <span class="checkmark"></span>
+                                Send me updates about new events and features
+                            </label>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-full" id="signup-btn">
+                            <i class="fas fa-user-plus"></i>
+                            Create Account
+                        </button>
+                    </form>
+                    
+                    <div class="auth-divider">
+                        <span>or</span>
+                    </div>
+                    
+                    <div class="social-login">
+                        <button class="btn btn-social btn-google" onclick="signupWithGoogle()">
+                            <i class="fab fa-google"></i>
+                            Continue with Google
+                        </button>
+                        <button class="btn btn-social btn-facebook" onclick="signupWithFacebook()">
+                            <i class="fab fa-facebook-f"></i>
+                            Continue with Facebook
+                        </button>
+                    </div>
+                    
+                    <div class="auth-footer">
+                        <p>Already have an account? <a href="/public/login.html">Sign in</a></p>
+                    </div>
+                </div>
+                
+                <div class="auth-image">
+                    <img src="/placeholder.svg?height=600&width=500" alt="Signup illustration">
+                    <div class="auth-image-content">
+                        <h3>Start Your Journey</h3>
+                        <p>Create amazing events, build communities, and earn while doing what you love.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-brand">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>Sync</span>
+                    </div>
+                    <p class="footer-description">
+                        Connecting communities through amazing events across India
+                    </p>
+                </div>
+                <div class="footer-section">
+                    <h4 class="footer-title">Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="/privacy">Privacy Policy</a></li>
+                        <li><a href="/terms">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Sync. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Notification Container -->
+    <div class="notification-container" id="notification-container"></div>
+
+    <!-- Scripts -->
+    <script src="/public/js/config.js"></script>
+    <script src="/public/js/api.js"></script>
+    <script src="/public/js/auth.js"></script>
+    <script src="/public/js/signup.js"></script>
+</body>
+</html>

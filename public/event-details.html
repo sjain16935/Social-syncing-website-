@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Details - Sync</title>
+    <meta name="description" content="View event details, book tickets, and join amazing experiences.">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/styles.css">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Razorpay -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <div class="nav-brand">
+                    <a href="/" class="brand-link">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>Sync</span>
+                    </a>
+                </div>
+                
+                <div class="nav-menu" id="nav-menu">
+                    <a href="/public/events.html" class="nav-link">Browse Events</a>
+                    <a href="/public/create-event.html" class="nav-link">Host Event</a>
+                    <a href="/#features" class="nav-link">Features</a>
+                    <a href="/#about" class="nav-link">About</a>
+                </div>
+                
+                <div class="nav-buttons" id="nav-buttons">
+                    <button class="btn btn-ghost" onclick="showAuthModal('login')">Sign In</button>
+                    <button class="btn btn-primary" onclick="showAuthModal('signup')">Get Started</button>
+                </div>
+                
+                <button class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Event Details Container -->
+    <div class="event-details-container" id="event-details-container">
+        <!-- Content will be loaded dynamically -->
+        <div class="loading-container">
+            <div class="loading-spinner">
+                <i class="fas fa-spinner fa-spin"></i>
+            </div>
+            <p>Loading event details...</p>
+        </div>
+    </div>
+
+    <!-- Booking Modal -->
+    <div class="modal" id="booking-modal">
+        <div class="modal-content booking-modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Book Your Tickets</h2>
+                <button class="modal-close" onclick="closeBookingModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="booking-details" id="booking-details">
+                <!-- Event info will be populated here -->
+            </div>
+            
+            <form class="booking-form" onsubmit="processPayment(event)">
+                <div class="form-section">
+                    <h3>Ticket Quantity</h3>
+                    <div class="quantity-selector">
+                        <button type="button" class="quantity-btn" onclick="updateQuantity(-1)">-</button>
+                        <input type="number" id="ticket-quantity" value="1" min="1" readonly>
+                        <button type="button" class="quantity-btn" onclick="updateQuantity(1)">+</button>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <h3>Contact Information</h3>
+                    <div class="form-group">
+                        <label for="booking-name">Full Name</label>
+                        <input type="text" id="booking-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="booking-email">Email Address</label>
+                        <input type="email" id="booking-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="booking-phone">Phone Number</label>
+                        <input type="tel" id="booking-phone" required>
+                    </div>
+                </div>
+                
+                <div class="booking-summary">
+                    <h3>Booking Summary</h3>
+                    <div class="summary-row">
+                        <span>Tickets (<span id="summary-quantity">1</span>x)</span>
+                        <span id="summary-subtotal">₹500</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Platform Fee</span>
+                        <span id="summary-fee">₹25</span>
+                    </div>
+                    <div class="summary-row total">
+                        <span>Total Amount</span>
+                        <span id="summary-total">₹525</span>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-primary btn-full">
+                    <i class="fas fa-credit-card"></i>
+                    Proceed to Payment
+                </button>
+                
+                <div class="security-note">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Secure payment powered by Razorpay</span>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-brand">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>Sync</span>
+                    </div>
+                    <p class="footer-description">
+                        Connecting communities through amazing events across India
+                    </p>
+                </div>
+                <div class="footer-section">
+                    <h4 class="footer-title">Platform</h4>
+                    <ul class="footer-links">
+                        <li><a href="/public/events.html">Browse Events</a></li>
+                        <li><a href="/public/create-event.html">Host Event</a></li>
+                        <li><a href="/public/dashboard.html">Dashboard</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4 class="footer-title">Support</h4>
+                    <ul class="footer-links">
+                        <li><a href="/help">Help Center</a></li>
+                        <li><a href="/contact">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4 class="footer-title">Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="/privacy">Privacy Policy</a></li>
+                        <li><a href="/terms">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Sync. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Auth Modal -->
+    <div class="modal" id="auth-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Welcome Back</h2>
+                <button class="modal-close" onclick="closeAuthModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <!-- Login Form -->
+            <form class="auth-form" id="login-form" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label for="login-email">Email Address</label>
+                    <input type="email" id="login-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">Sign In</button>
+                <p class="auth-switch">
+                    Don't have an account? 
+                    <a href="#" onclick="switchToSignup()">Sign up</a>
+                </p>
+            </form>
+            
+            <!-- Signup Form -->
+            <form class="auth-form" id="signup-form" onsubmit="handleSignup(event)" style="display: none;">
+                <div class="form-group">
+                    <label for="signup-name">Full Name</label>
+                    <input type="text" id="signup-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-email">Email Address</label>
+                    <input type="email" id="signup-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-phone">Phone Number</label>
+                    <input type="tel" id="signup-phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-password">Password</label>
+                    <input type="password" id="signup-password" required minlength="6">
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">Create Account</button>
+                <p class="auth-switch">
+                    Already have an account? 
+                    <a href="#" onclick="switchToLogin()">Sign in</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/js/config.js"></script>
+    <script src="/js/api.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/event-details.js"></script>
+</body>
+</html>

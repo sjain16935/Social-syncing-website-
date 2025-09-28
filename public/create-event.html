@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Event - Sync</title>
+    <meta name="description" content="Create and host your own amazing event. Easy setup, secure payments, and powerful tools.">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="/public/css/styles.css">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <div class="nav-brand">
+                    <a href="/" class="brand-link">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>Sync</span>
+                    </a>
+                </div>
+                
+                <div class="nav-menu" id="nav-menu">
+                    <a href="/public/events.html" class="nav-link">Browse Events</a>
+                    <a href="/public/create-event.html" class="nav-link active">Host Event</a>
+                    <a href="/#features" class="nav-link">Features</a>
+                    <a href="/#about" class="nav-link">About</a>
+                </div>
+                
+                <div class="nav-buttons" id="nav-buttons">
+                    <button class="btn btn-ghost" onclick="showAuthModal('login')">Sign In</button>
+                    <button class="btn btn-primary" onclick="showAuthModal('signup')">Get Started</button>
+                </div>
+                
+                <button class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <div class="page-header-content">
+                <h1 class="page-title">Create Your Event</h1>
+                <p class="page-description">Fill in the details to host an amazing event</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Create Event Form -->
+    <section class="create-event">
+        <div class="container">
+            <div class="create-event-container">
+                <form class="create-event-form" id="create-event-form" onsubmit="handleFormSubmit(event)">
+                    
+                    <!-- Basic Information -->
+                    <div class="form-card">
+                        <div class="form-card-header">
+                            <i class="fas fa-info-circle"></i>
+                            <h3>Basic Information</h3>
+                        </div>
+                        <div class="form-card-content">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="title">Event Title *</label>
+                                    <input type="text" id="title" name="title" required 
+                                           placeholder="Enter event title">
+                                </div>
+                                <div class="form-group">
+                                    <label for="category">Category *</label>
+                                    <select id="category" name="category" required>
+                                        <option value="">Select category</option>
+                                        <option value="Professional">Professional</option>
+                                        <option value="Party">Party</option>
+                                        <option value="Cultural">Cultural</option>
+                                        <option value="Educational">Educational</option>
+                                        <option value="Sports">Sports</option>
+                                        <option value="Food">Food & Drink</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="description">Description *</label>
+                                <textarea id="description" name="description" rows="4" required
+                                          placeholder="Describe your event in detail..."></textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Tags</label>
+                                <div class="tags-container" id="tags-container">
+                                    <!-- Tags will be added here -->
+                                </div>
+                                <div class="tag-input-container">
+                                    <input type="text" id="tag-input" placeholder="Add a tag">
+                                    <button type="button" class="btn btn-outline btn-sm" onclick="addTag()">
+                                        Add Tag
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Date & Time -->
+                    <div class="form-card">
+                        <div class="form-card-header">
+                            <i class="fas fa-calendar"></i>
+                            <h3>Date & Time</h3>
+                        </div>
+                        <div class="form-card-content">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="date">Event Date *</label>
+                                    <input type="date" id="date" name="date" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="time">Start Time *</label>
+                                    <input type="time" id="time" name="time" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Location -->
+                    <div class="form-card">
+                        <div class="form-card-header">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <h3>Location</h3>
+                        </div>
+                        <div class="form-card-content">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="city">City *</label>
+                                    <select id="city" name="city" required>
+                                        <option value="">Select city</option>
+                                        <option value="Mumbai">Mumbai</option>
+                                        <option value="Delhi">Delhi</option>
+                                        <option value="Bangalore">Bangalore</option>
+                                        <option value="Pune">Pune</option>
+                                        <option value="Hyderabad">Hyderabad</option>
+                                        <option value="Chennai">Chennai</option>
+                                        <option value="Kolkata">Kolkata</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="venue">Venue Name *</label>
+                                    <input type="text" id="venue" name="venue" required 
+                                           placeholder="Enter venue name">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="address">Full Address *</label>
+                                <textarea id="address" name="address" rows="2" required
+                                          placeholder="Enter complete address with landmarks"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pricing & Capacity -->
+                    <div class="form-card">
+                        <div class="form-card-header">
+                            <i class="fas fa-rupee-sign"></i>
+                            <h3>Pricing & Capacity</h3>
+                        </div>
+                        <div class="form-card-content">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="price">Ticket Price (₹) *</label>
+                                    <input type="number" id="price" name="price" min="0" required 
+                                           placeholder="0">
+                                    <small class="form-help">Set to 0 for free events</small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="capacity">Maximum Attendees *</label>
+                                    <input type="number" id="capacity" name="capacity" min="1" required 
+                                           placeholder="50">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Event Image -->
+                    <div class="form-card">
+                        <div class="form-card-header">
+                            <i class="fas fa-image"></i>
+                            <h3>Event Image</h3>
+                        </div>
+                        <div class="form-card-content">
+                            <div class="image-upload" id="image-upload">
+                                <div class="image-upload-area" onclick="document.getElementById('image-input').click()">
+                                    <i class="fas fa-cloud-upload-alt"></i>
+                                    <p>Upload an event banner or image</p>
+                                    <small>Recommended size: 1200x600px (Max: 5MB)</small>
+                                </div>
+                                <input type="file" id="image-input" accept="image/*" style="display: none;">
+                            </div>
+                            <div class="image-preview" id="image-preview" style="display: none;">
+                                <img id="preview-img" src="/placeholder.svg" alt="Preview">
+                                <button type="button" class="remove-image" onclick="removeImage()">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Event Settings -->
+                    <div class="form-card">
+                        <div class="form-card-header">
+                            <i class="fas fa-cog"></i>
+                            <h3>Event Settings</h3>
+                        </div>
+                        <div class="form-card-content">
+                            <div class="form-group">
+                                <div class="checkbox-group">
+                                    <input type="checkbox" id="private" name="private">
+                                    <label for="private">
+                                        <strong>Private Event</strong>
+                                        <span>Only people with the link can see this event</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="checkbox-group">
+                                    <input type="checkbox" id="approval" name="approval">
+                                    <label for="approval">
+                                        <strong>Require Approval</strong>
+                                        <span>Manually approve each registration</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Commission Info -->
+                    <div class="form-card commission-card">
+                        <div class="form-card-header">
+                            <i class="fas fa-info-circle"></i>
+                            <h3>Commission Structure</h3>
+                        </div>
+                        <div class="form-card-content">
+                            <div class="commission-info">
+                                <p>Sync charges a 5% commission on each ticket sale to cover payment processing and platform maintenance.</p>
+                                <div class="commission-calculation" id="commission-calculation">
+                                    For a ₹0 ticket, you'll receive ₹0 per sale.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Form Actions -->
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-outline" onclick="saveDraft()">
+                            Save as Draft
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            Create Event
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-brand">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>Sync</span>
+                    </div>
+                    <p class="footer-description">
+                        Connecting communities through amazing events across India
+                    </p>
+                </div>
+                <div class="footer-section">
+                    <h4 class="footer-title">Platform</h4>
+                    <ul class="footer-links">
+                        <li><a href="/events">Browse Events</a></li>
+                        <li><a href="/create-event">Host Event</a></li>
+                        <li><a href="/dashboard">Dashboard</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4 class="footer-title">Support</h4>
+                    <ul class="footer-links">
+                        <li><a href="/help">Help Center</a></li>
+                        <li><a href="/contact">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4 class="footer-title">Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="/privacy">Privacy Policy</a></li>
+                        <li><a href="/terms">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Sync. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Auth Modal -->
+    <div class="modal" id="auth-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Welcome Back</h2>
+                <button class="modal-close" onclick="closeAuthModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <!-- Login Form -->
+            <form class="auth-form" id="login-form" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label for="login-email">Email Address</label>
+                    <input type="email" id="login-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">Sign In</button>
+                <p class="auth-switch">
+                    Don't have an account? 
+                    <a href="#" onclick="switchToSignup()">Sign up</a>
+                </p>
+            </form>
+            
+            <!-- Signup Form -->
+            <form class="auth-form" id="signup-form" onsubmit="handleSignup(event)" style="display: none;">
+                <div class="form-group">
+                    <label for="signup-name">Full Name</label>
+                    <input type="text" id="signup-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-email">Email Address</label>
+                    <input type="email" id="signup-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-phone">Phone Number</label>
+                    <input type="tel" id="signup-phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-password">Password</label>
+                    <input type="password" id="signup-password" required minlength="6">
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">Create Account</button>
+                <p class="auth-switch">
+                    Already have an account? 
+                    <a href="#" onclick="switchToLogin()">Sign in</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/public/js/config.js"></script>
+    <script src="/public/js/api.js"></script>
+    <script src="/public/js/auth.js"></script>
+    <script src="/public/js/create-event.js"></script>
+</body>
+</html>
